@@ -22,4 +22,26 @@ public class CargoService {
 		Optional<Cargo> cargo = repository.findById(id);
 		return cargo.get();
 	}
+	
+	public Cargo insert(Cargo cargo) {
+		return repository.save(cargo);
+	}
+	
+	public void delete(Integer id) {
+		repository.deleteById(id);
+	}
+	
+	private void atualizaCargo (Cargo cargo, Cargo obj) {
+		cargo.setNomeCargo(obj.getNomeCargo());
+		cargo.setSalario(obj.getSalario());
+	}
+	
+	public Cargo update(Integer id, Cargo obj) {
+		Cargo cargo = repository.getOne(id);
+		atualizaCargo(cargo, obj);
+		return repository.save(cargo);
+	}
+	
+	
+	
 }

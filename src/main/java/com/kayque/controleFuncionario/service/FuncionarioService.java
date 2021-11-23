@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kayque.controleFuncionario.entities.Cargo;
 import com.kayque.controleFuncionario.entities.Funcionario;
 import com.kayque.controleFuncionario.repositories.FuncionarioRepository;
 
@@ -22,5 +23,24 @@ public class FuncionarioService {
 
 		Optional<Funcionario> funcionario = repository.findById(id);
 		return funcionario.get();
+	}
+
+	public Funcionario insert(Funcionario funcionario) {
+		return repository.save(funcionario);
+	}
+	
+	public void delete(Integer id) {
+		repository.deleteById(id);
+	}
+	
+	private void atualizaCargo (Funcionario funcionario, Funcionario obj) {
+		funcionario.setNome(obj.getNome());
+		funcionario.setCargo(obj.getCargo());
+	}
+	
+	public Funcionario update(Integer id, Funcionario obj) {
+		Funcionario funcionario = repository.getOne(id);
+		atualizaCargo(funcionario, obj);
+		return repository.save(funcionario);
 	}
 }
